@@ -32,8 +32,8 @@ export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      title={`主页`}
+      description="KnotLink - 一款轻量化、语义化应用互联协议">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
