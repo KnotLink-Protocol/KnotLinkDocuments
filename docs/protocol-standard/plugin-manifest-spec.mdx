@@ -1,0 +1,158 @@
+---
+title: 插件清单规范
+sidebar_position: 2
+description: KnotLink 插件清单（plugin_manifest.json）的结构定义与字段说明
+---
+
+# 插件清单（`plugin_manifest.json`）规范
+
+本文档定义了 KnotLink 插件系统的 **插件清单文件** 结构。每个插件必须在其根目录下包含此文件，以便 KnotLink 运行时识别、加载和管理插件。
+
+
+## 顶层结构
+
+```json
+{
+  "app_id": "0x00000006",
+  "author": "HXH",
+  "auto_start": true,
+  "description": "this is a plugin with limitless ability",
+  "exe_path": "MsgNotification1.exe",
+  "plugin_name": "HHTestPlugin",
+  "version": "v1.0.0"
+}
+```
+
+
+
+| 字段          | 类型                  | 必填 | 描述                                                         |
+| :------------ | :-------------------- | :--- | :----------------------------------------------------------- |
+| `app_id`      | `string` (十六进制)   | 是   | 插件的全局唯一标识符，格式为 `0x` 开头的 8 位十六进制数      |
+| `author`      | `string`              | 是   | 插件作者或组织名称                                           |
+| `auto_start`  | `boolean` 或 `string` | 否   | 是否在 KnotLink 启动时自动加载该插件。建议使用布尔值，也支持字符串 `"true"` / `"false"` |
+| `description` | `string`              | 否   | 插件功能描述，建议简洁清晰                                   |
+| `exe_path`    | `string`              | 是   | 插件可执行文件的路径（相对于清单文件所在目录）               |
+| `plugin_name` | `string`              | 是   | 插件显示名称，应具有可读性                                   |
+| `version`     | `string`              | 是   | 插件版本号，建议遵循 [语义化版本](https://semver.org/lang/zh-CN/) 规范（如 `v1.0.0` 或 `1.0.0`） |
+
+------
+
+## 字段详细说明
+
+### `app_id`（应用标识符）
+
+- **类型**：`string`
+- **格式**：以 `0x` 开头，后跟 8 位十六进制数字（例如 `0x00000006`）。
+- **唯一性**：整个 KnotLink 生态中必须唯一。建议开发者向官方申请或使用预分配的段。
+- **示例**：`"0x7F000001"`
+
+------
+
+### `author`（作者）
+
+- **类型**：`string`
+- **描述**：插件作者或组织的名称，可包含空格和特殊字符。
+- **示例**：`"KnotLink Team"`
+
+------
+
+### `auto_start`（自动启动）
+
+- **类型**：`boolean`（推荐）或 `string`（兼容）
+- **描述**：控制是否在 KnotLink 启动时自动启动该插件。
+- **取值**：
+  - 布尔值：`true` 或 `false`
+  - 字符串：`"true"` 或 `"false"`（大小写敏感，建议使用小写）
+- **默认值**：如果未提供，视为 `false`。
+- **建议**：尽量使用布尔值以保证严格类型检查。
+
+------
+
+### `description`（描述）
+
+- **类型**：`string`
+- **描述**：插件的简短功能说明，有助于用户了解插件用途。
+- **最大长度**：建议不超过 200 字符。
+- **示例**：`"Provides message notification services."`
+
+------
+
+### `exe_path`（可执行文件路径）
+
+- **类型**：`string`
+- **描述**：插件可执行文件的相对路径（相对于 `plugin_manifest.json` 所在目录）。
+- **支持**：可以是 `.exe`（Windows）、可执行脚本（Linux/macOS）或任何可运行文件。
+- **示例**：
+  - Windows：`"bin/plugin.exe"`
+  - Linux：`"bin/plugin"`
+- **注意**：路径分隔符建议使用 `/` 以保证跨平台兼容性。
+
+------
+
+### `plugin_name`（插件名称）
+
+- **类型**：`string`
+- **描述**：插件的显示名称，用于在用户界面中标识。
+- **限制**：应避免特殊字符，建议使用字母、数字、空格和下划线。
+- **示例**：`"HHTestPlugin"`
+
+------
+
+### `version`（版本号）
+
+- **类型**：`string`
+- **描述**：插件版本号，用于升级管理和兼容性检查。
+- **格式**：建议遵循 [语义化版本 2.0.0](https://semver.org/) 规范，如 `"1.0.0"` 或 `"v1.0.0"`（前缀 `v` 可选）。
+- **示例**：`"v1.2.3"`
+
+------
+
+## 完整示例
+
+json
+
+```
+{
+  "app_id": "0x7F000001",
+  "author": "KnotLink Contributors",
+  "auto_start": true,
+  "description": "KnotLink system monitor plugin",
+  "exe_path": "bin/monitor.exe",
+  "plugin_name": "SystemMonitor",
+  "version": "2.1.0"
+}
+```
+
+
+
+------
+
+## 注意事项
+
+1. **JSON 格式严格性**
+   清单文件必须是合法的 JSON，不得包含注释（除非使用支持注释的解析器，但建议保持标准 JSON）。
+2. **字段大小写敏感**
+   所有字段名均为 **小写 + 下划线** 风格（如 `app_id`），解析器应区分大小写。
+3. **扩展性**
+   未来可能增加 `dependencies`、`permissions` 等字段，解析器应忽略未知字段以确保向前兼容。
+4. **路径安全**
+   `exe_path` 不应包含 `..` 等危险路径，防止目录遍历攻击。建议仅允许相对路径且限定在插件目录内。
+5. **版本比较**
+   建议使用语义化版本进行升级判断，推荐使用 `semver` 库进行版本比较。
+6. **校验建议**
+   加载插件前，KnotLink 应对清单进行校验：
+   - 检查 `app_id` 是否唯一
+   - 检查 `exe_path` 是否存在且可执行
+   - 检查必填字段是否缺失
+
+------
+
+## 版本历史
+
+| 版本 | 日期       | 变更说明 |
+| :--- | :--------- | :------- |
+| v1.0 | 2026-06-21 | 初始版本 |
+
+------
+
+如有疑问，请参考 [协议规范](https://docs/protocol-standard) 或联系开发团队。

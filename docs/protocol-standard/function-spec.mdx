@@ -1,0 +1,217 @@
+---
+sidebar_position: 1
+title: 功能清单规范
+---
+
+# 功能清单（`funcList.json`）规范
+
+本文档定义了 KnotLink 协议中 **功能清单** 的 JSON 数据结构。该文件用于描述应用程序可对外提供的 **套接字功能（Socket Functions）** 与 **信号（Signals）**，以便其他结点发现和调用。
+
+
+## 顶层结构
+
+```json
+{
+  "openSocket": { ... },   // 套接字功能集合
+  "signal": { ... }        // 信号集合
+}
+```
+
+
+
+| 字段         | 类型     | 必填 | 描述                         |
+| :----------- | :------- | :--- | :--------------------------- |
+| `openSocket` | `object` | 是   | 键为功能名，值为对应功能详情 |
+| `signal`     | `object` | 是   | 键为信号名，值为对应信号详情 |
+
+------
+
+## 套接字功能（`openSocket`）
+
+每个功能项的结构如下：
+
+json
+
+```
+"功能名称": {
+  "appID": "0x00000000",
+  "openSocketID": "0x00000000",
+  "description": "功能描述",
+  "args": { ... },
+  "returns": { ... }
+}
+```
+
+
+
+| 字段           | 类型                | 必填 | 描述                                     |
+| :------------- | :------------------ | :--- | :--------------------------------------- |
+| `appID`        | `string` (十六进制) | 是   | 应用标识符，用于区分不同应用             |
+| `openSocketID` | `string` (十六进制) | 是   | 该套接字功能的唯一标识符                 |
+| `description`  | `string`            | 否   | 功能的文本描述                           |
+| `args`         | `object`            | 否   | 参数定义，键为参数名，值为参数详情       |
+| `returns`      | `object`            | 否   | 返回值定义，键为返回值名，值为返回值详情 |
+
+### `args` 参数详情
+
+```
+"参数名": {
+  "type": "static | optional | input",
+  "value": "固定值（仅当 type=static 时）",
+  "options": [ "option1", "option2" ], // 仅当 type=optional 时
+  "description": "参数说明"
+}
+```
+
+
+
+| 字段          | 类型     | 必填          | 描述                                                         |
+| :------------ | :------- | :------------ | :----------------------------------------------------------- |
+| `type`        | `enum`   | 是            | 参数类型：`static`（固定值）、`optional`（可选值列表）、`input`（运行时输入） |
+| `value`       | `any`    | 仅 `static`   | 固定值内容                                                   |
+| `options`     | `array`  | 仅 `optional` | 可选的枚举值列表                                             |
+| `description` | `string` | 否            | 参数描述                                                     |
+
+### `returns` 返回值详情
+
+json
+
+```
+"返回值名": {
+  "description": "返回值说明"
+}
+```
+
+
+
+| 字段          | 类型     | 必填 | 描述       |
+| :------------ | :------- | :--- | :--------- |
+| `description` | `string` | 否   | 返回值描述 |
+
+------
+
+## 信号（`signal`）
+
+每个信号项的结构如下：
+
+json
+
+```
+"信号名称": {
+  "appID": "0x00000000",
+  "signalID": "0x00000000",
+  "description": "信号描述",
+  "returns": { ... }
+}
+```
+
+
+
+| 字段          | 类型                | 必填 | 描述                   |
+| :------------ | :------------------ | :--- | :--------------------- |
+| `appID`       | `string` (十六进制) | 是   | 应用标识符             |
+| `signalID`    | `string` (十六进制) | 是   | 该信号的唯一标识符     |
+| `description` | `string`            | 否   | 信号描述               |
+| `returns`     | `object`            | 否   | 信号携带的数据字段定义 |
+
+### `returns` 信号返回字段
+
+与套接字返回值结构相同，但**增加了可选的 `verification` 字段**：
+
+json
+
+```
+"字段名": {
+  "description": "字段说明",
+  "verification": "可选的验证规则"
+}
+```
+
+
+
+| 字段           | 类型     | 必填 | 描述                               |
+| :------------- | :------- | :--- | :--------------------------------- |
+| `description`  | `string` | 否   | 字段说明                           |
+| `verification` | `string` | 否   | 验证规则或约束（如正则、类型检查） |
+
+------
+
+## 完整示例
+
+
+
+```json
+{
+  "openSocket": {
+    "executeTask": {
+      "appID": "0x7F000001",
+      "openSocketID": "0x1001",
+      "description": "执行指定任务",
+      "args": {
+        "taskName": {
+          "type": "static",
+          "value": "build",
+          "description": "任务名称"
+        },
+        "mode": {
+          "type": "optional",
+          "options": [ "fast", "normal", "safe" ],
+          "description": "执行模式"
+        },
+        "params": {
+          "type": "input",
+          "description": "任务参数（JSON 字符串）"
+        }
+      },
+      "returns": {
+        "result": {
+          "description": "执行结果"
+        }
+      }
+    }
+  },
+  "signal": {
+    "taskCompleted": {
+      "appID": "0x7F000001",
+      "signalID": "0x2001",
+      "description": "任务完成信号",
+      "returns": {
+        "taskName": {
+          "description": "已完成的任务名称"
+        },
+        "exitCode": {
+          "description": "进程退出码",
+          "verification": "0 <= exitCode <= 255"
+        }
+      }
+    }
+  }
+}
+```
+
+
+
+------
+
+## 注意事项
+
+1. **标识符唯一性**
+   `appID` 与 `openSocketID` / `signalID` 的组合应在整个网络中唯一。
+2. **字段类型严格性**
+   解析器应严格校验 `type` 字段，并根据类型要求检查 `value` 或 `options` 是否存在。
+3. **扩展性**
+   未来可能增加 `metadata`、`tags` 等附加字段，解析器应忽略未知字段以保持向前兼容。
+4. **文档生成**
+   此规范可用于自动生成 API 文档或客户端 SDK 代码。
+
+------
+
+## 版本历史
+
+| 版本 | 日期       | 变更说明 |
+| :--- | :--------- | :------- |
+| v1.0 | 2026-06-21 | 初始版本 |
+
+------
+
+如有疑问，请参考 [协议规范](https://docs/protocol-standard) 获取更多上下文信息。
