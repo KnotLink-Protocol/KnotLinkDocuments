@@ -93,8 +93,9 @@ const config = {
             position: 'left',
             label: '教程文档',
           },
-          {to: '/blog', label: '开发者文档', position: 'left'},
-          {to: '/blog', label: '协议规范', position: 'left'},
+          // {to: '/docs/user-guidance/basic-usage', label: '用户教程', position: 'left'},
+          // {to: '/docs/user-guidance/basic-usage', label: '开发者文档', position: 'left'},
+          // {to: '/blog', label: '协议规范', position: 'left'},
           {to: '/blog', label: '博客', position: 'left'},
           {
             href: 'https://github.com/facebook/docusaurus',

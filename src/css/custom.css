@@ -1,22 +1,23 @@
 /* src/css/custom.css */
 
 :root {
-  --ifm-color-primary: #1e3a5f;          /* 主色：深海军蓝 */
-  --ifm-color-primary-dark: #15294b;     /* 更暗 */
-  --ifm-color-primary-darker: #0f1e38;   /* 最暗 */
-  --ifm-color-primary-darkest: #0a1529;  /* 极暗 */
-  --ifm-color-primary-light: #2b4a7a;    /* 稍亮 */
-  --ifm-color-primary-lighter: #3d5a8c;  /* 中等亮 */
-  --ifm-color-primary-lightest: #5a7aae; /* 最亮（仍偏沉稳） */
+  /* 主色：亮金色 #D4B126 */
+  --ifm-color-primary: #D4B126;
+  --ifm-color-primary-dark: #B8971E;    /* 稍暗 */
+  --ifm-color-primary-darker: #9E7D16;  /* 更深 */
+  --ifm-color-primary-darkest: #7A5F0E; /* 最深 */
+  --ifm-color-primary-light: #DCC24A;   /* 稍亮 */
+  --ifm-color-primary-lighter: #E5D06F; /* 更亮 */
+  --ifm-color-primary-lightest: #EDDF96;/* 最亮 */
 }
 
 [data-theme='dark'] {
-  /* 暗色模式下主色适当提亮，保证文字可读，但依然保持沉稳 */
-  --ifm-color-primary: #4a7ab5;
-  --ifm-color-primary-dark: #3d5a8c;
-  --ifm-color-primary-darker: #2b4a7a;
-  --ifm-color-primary-darkest: #1e3a5f;
-  --ifm-color-primary-light: #5a8ac4;
-  --ifm-color-primary-lighter: #7aa0d4;
-  --ifm-color-primary-lightest: #9abae4;
+  /* 暗色模式下使用更沉稳的深金色 #A17600 作为基础，适当提亮以保证可读 */
+  --ifm-color-primary: #C49E1A;          /* 介于 #A17600 和 #D4B126 之间 */
+  --ifm-color-primary-dark: #A17600;     /* 你指定的暗色 */
+  --ifm-color-primary-darker: #8B6300;
+  --ifm-color-primary-darkest: #6E4E00;
+  --ifm-color-primary-light: #D4B126;    /* 主色在暗色下作为亮色 */
+  --ifm-color-primary-lighter: #E0C44A;
+  --ifm-color-primary-lightest: #ECD77A;
 }
