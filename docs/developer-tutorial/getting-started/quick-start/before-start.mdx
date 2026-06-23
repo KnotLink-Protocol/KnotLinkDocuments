@@ -2,3 +2,85 @@
 title: 准备开发    # 页面标题
 sidebar_position: 1   # 数字越小，排在侧边栏越前面
 ---
+
+在开始使用 KnotLink 之前，需要完成以下准备工作。
+
+------
+
+## 1. 安装服务程序
+
+KnotLink 服务程序（守护进程）是 KnotLink 网络的中枢，负责管理所有已接入的软件节点，协调消息路由和功能调用。所有客户端都需要连接到同一个本地服务程序。
+
+**下载地址**：https://github.com/KnotLink-Protocol/KnotLink/releases
+
+请根据你的操作系统下载对应版本：
+
+| 操作系统 | 推荐版本                       | 说明                                                   |
+| :------- | :----------------------------- | :----------------------------------------------------- |
+| Windows  | `.exe` 安装包                  | 下载后双击安装，服务将自动注册为系统服务并开机启动     |
+| macOS    | `.dmg` 或 `.pkg`               | 下载后打开安装包，将 KnotLink 拖入 Applications 文件夹 |
+| Linux    | `.deb` / `.rpm` 或 `.AppImage` | 根据发行版选择对应包格式，使用包管理器安装             |
+
+服务程序安装完成后，建议重启系统以确保服务正常启动。运行状态下，它会静默在后台运行，默认占用以下端口：
+
+| 端口 | 用途                         |
+| :--- | :--------------------------- |
+| 6370 | 发送者（Sender）通信端口     |
+| 6372 | 订阅者（Subscriber）通信端口 |
+| 6376 | 询问者（Querier）通信端口    |
+| 6378 | 回复者（Responser）通信端口  |
+
+> 如果端口被占用，请解除占用，然后重启服务。
+
+------
+
+## 2. 安装库
+
+KnotLink 提供了多种编程语言的客户端库，开发者可根据自己的技术栈选择对应的库。
+
+### Python
+
+```bash
+pip install knotlink
+```
+
+### 其他语言
+
+其余语言的 SDK 需要在 KnotLink SDK 仓库中提取：
+
+- **Node.js / JavaScript**：`knotlink-sdk-js`
+- **C++**：`knotlink-sdk-cpp`
+- **C#**：`knotlink-sdk-cs`
+- **Java**：`knotlink-sdk-java`
+- **Dart / Flutter**：`knotlink-sdk-dart`
+- **Lua**：`knotlink-sdk-lua`
+- **Rust**：`knotlink-sdk-rust`
+
+从 SDK 仓库中获取对应语言的源码或包文件，按照各自语言的包管理工具进行安装。
+
+------
+
+## 3. 下载 SDK
+
+KnotLink SDK 包含了各语言的客户端源码、示例程序和测试工具。
+
+**下载地址**：https://github.com/KnotLink-Protocol/KnotLinkSDK
+
+SDK 仓库包含以下子目录：
+
+| 目录                  | 语言                 | 说明                  |
+| :-------------------- | :------------------- | :-------------------- |
+| `knotlink-sdk-python` | Python               | Python 客户端完整源码 |
+| `knotlink-sdk-js`     | JavaScript / Node.js | JavaScript 客户端     |
+| `knotlink-sdk-cpp`    | C++                  | C++ 客户端            |
+| `knotlink-sdk-cs`     | C#                   | C# 客户端             |
+| `knotlink-sdk-java`   | Java                 | Java 客户端           |
+| `knotlink-sdk-dart`   | Dart / Flutter       | Dart 客户端           |
+| `knotlink-sdk-lua`    | Lua                  | Lua 客户端            |
+| `knotlink-sdk-rust`   | Rust                 | Rust 客户端           |
+
+你可以根据需要下载整个 SDK 仓库，或只提取对应语言的子目录。
+
+------
+
+完成以上三个步骤后，你的开发环境已经准备就绪。接下来请参考“快速开始”章节，运行第一个示例程序。

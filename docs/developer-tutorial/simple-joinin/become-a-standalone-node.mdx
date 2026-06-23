@@ -1,0 +1,63 @@
+---
+title: 成为独立式结点    # 页面标题
+sidebar_position: 1   # 数字越小，排在侧边栏越前面
+---
+
+## 成为独立式结点
+
+只需三步，让你的软件成为 KnotLink 网络中的一个独立式结点。以下步骤适用于任何编程语言。
+
+### 第一步：准备功能清单
+
+在项目根目录创建 `FuncList.json`，声明你的软件对外提供的能力。
+
+### 第二步：在自述文件中声明
+
+在项目 README.md 中添加以下章节，让用户和其他开发者知道你的软件已接入 KnotLink：
+
+```markdown
+## KnotLink 接入
+
+本软件是 KnotLink 生态中的一个独立式结点。
+
+- **app_id**: `com.example.myservice`
+- **功能清单**: [FuncList.json](./FuncList.json)
+- **接入协议**: KnotLink
+- **节点类型**: 独立式
+```
+
+
+
+### 第三步：安装时注册（节点发现）
+
+在软件的安装过程中，将节点信息写入系统，使守护进程能够自动发现该节点。
+
+**Windows（注册表）:**
+
+```text
+路径: HKEY_LOCAL_MACHINE\SOFTWARE\KnotLink\Nodes\com.example.myservice
+键值:
+  - app_id = "com.example.myservice"
+  - name = "我的服务"
+  - version = "1.0.0"
+  - install_path = "C:\Program Files\MyService"
+  - FuncList = "FuncList.json"
+```
+
+
+
+**macOS / Linux（配置文件）:**
+
+```text
+路径: /etc/knotlink/nodes/com.example.myservice.conf
+内容:
+  APP_ID="com.example.myservice"
+  NAME="我的服务"
+  VERSION="1.0.0"
+  INSTALL_PATH="/usr/local/myservice"
+  FUNCLIST="FuncList.json"
+```
+
+
+
+你的软件已经成为 KnotLink 网络中的一个独立式结点，可以被其他软件发现和调用。

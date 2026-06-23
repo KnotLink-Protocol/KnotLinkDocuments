@@ -2,3 +2,32 @@
 title: 设置标识符    # 页面标题
 sidebar_position: 1   # 数字越小，排在侧边栏越前面
 ---
+
+在 KnotLink 网络中，每个软件和功能都需要通过唯一标识符进行识别。
+
+| 标识符类型  | 格式建议     | 示例                   | 用途                                       |
+| :---------- | :----------- | :--------------------- | :----------------------------------------- |
+| `app_id`    | 反向域名风格 | `app.knotlinksdk.test` | 标识软件或应用                             |
+| `socket_id` | 字符串       | `test_socket`          | 标识开放套接字（用于 Querier / Responser） |
+| `signal_id` | 字符串       | `test_signal`          | 标识信号（用于 Sender / Subscriber）       |
+
+**命名建议：**
+
+```text
+app_id    → 反向域名风格，如 com.example.myapp（也可使用八位十六进制，如0x00000010）
+socket_id → 描述性名称，如 get_current_course（也可使用八位十六进制，如0x00000010）
+signal_id → 描述性名称，如 task_completed（也可使用八位十六进制，如0x00000010）
+```
+
+**示例（伪代码）：**
+
+```python
+# 定义唯一标识符
+APP_ID = "app.knotlinksdk.test"
+SOCKET_ID = "get_current_course"
+SIGNAL_ID = "task_completed"
+
+querier = Querier(APP_ID, SOCKET_ID)
+sender = Sender()
+sender.set_config(APP_ID, SIGNAL_ID)
+```

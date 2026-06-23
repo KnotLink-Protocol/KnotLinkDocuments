@@ -2,3 +2,78 @@
 title: 声明你的功能    # 页面标题
 sidebar_position: 3   # 数字越小，排在侧边栏越前面
 ---
+
+功能清单（FuncList.json）是 KnotLink 的核心抽象，用于声明软件对外提供的所有功能。
+
+#### 清单结构
+
+```json
+{
+    "appName":"appName",
+    "openSocket":{
+        "socketfunc1":{
+            "appID":"0x00000000",
+            "openSocketID":"0x00000000",
+            "description":"description_of_socketfunc1",
+            "args":{
+                "arg1":{
+                    "type":"static",
+                    "value":"val1",
+                    "description":"description_of_arg1"
+                },
+                "arg2":{
+                    "type":"optional",
+                    "options":[
+                        [
+                            "description_of_option1",
+                            "option1"
+                        ],
+                        [
+                            "description_of_option2",
+                            "option2"
+                        ]
+                    ],
+                    "description":"description_of_arg2"
+                },
+                "arg3":{
+                    "type":"input",
+                    "defaultVal":"defaultVal",
+                    "description":"description_of_arg3"
+                }
+            },
+            "returns":
+            [
+                ["return1","description_of_return1"]
+            ]
+        }
+    },
+    "signal":{
+        "signalfunc1":{
+            "appID":"0x00000000",
+            "signalID":"0x00000000",
+            "description":"description_of_signalfunc1",
+            "returns":{
+                "return1":{
+                    "description":"description_of_return1",
+                    "verification":"verification_of_return1"
+                },
+                "return2":{
+                    "description":"description_of_return2"
+                }
+            }
+        }
+    }
+}
+```
+
+具体请参考 功能清单规范
+
+
+#### 清单的用途
+
+| 用途         | 说明                                   |
+| :----------- | :------------------------------------- |
+| **服务发现** | 其他软件可以查询你的软件提供了哪些功能 |
+| **参数校验** | 调用方根据清单中的参数定义构造请求     |
+| **自动文档** | 清单可直接生成 API 文档                |
+| **AI 集成**  | AI 助手通过清单理解你的软件能做什么    |

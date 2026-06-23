@@ -2,3 +2,34 @@
 title: 上手信号-订阅模式    # 页面标题
 sidebar_position: 5   # 数字越小，排在侧边栏越前面
 ---
+
+以Python为示例
+
+**订阅者** `example_subscriber.py`：
+
+```python
+from knotlink import SignalSubscriber
+
+def on_recv(data):
+    print(data)
+
+sub = SignalSubscriber("app.knotlinksdk.test", "test_signal")
+sub.set_RecvFunc(on_recv)
+input()
+```
+
+
+
+**发送者** `example_sender.py`：
+
+```python
+from knotlink import SignalSender
+
+sender = SignalSender()
+sender.set_config("app.knotlinksdk.test", "test_signal")
+sender.emitt("Hello")
+```
+
+
+
+订阅者持续监听信号，收到时触发回调打印。发送者单向发出信号后立即退出，不等待回应。两个文件共用相同的 `app_id` 和 `signal_id`，须先启动订阅者。

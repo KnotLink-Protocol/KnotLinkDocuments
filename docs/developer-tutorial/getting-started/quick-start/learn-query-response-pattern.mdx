@@ -2,3 +2,30 @@
 title: 上手询问-回复模式    # 页面标题
 sidebar_position: 4   # 数字越小，排在侧边栏越前面
 ---
+
+以Python为示例
+
+**回复者** `example_responser.py`：
+
+```python
+from knotlink import OpenSocketResponser
+
+def handle(data):
+    return f"Echo: {data}"
+
+responser = OpenSocketResponser("app.knotlinksdk.test", "test_socket")
+responser.set_RecvFunc(handle)
+input()
+```
+
+**询问者** `example_querier.py`：
+
+```python
+from knotlink import OpenSocketQuerier
+
+querier = OpenSocketQuerier("app.knotlinksdk.test", "test_socket")
+result = querier.query("Hello")
+print(result)
+```
+
+回复者持续运行等待请求，收到后通过 `handle` 处理并回传。询问者发起请求，收到 `Echo: Hello` 后退出。两个文件共用相同的 `app_id` 和 `socket_id`，须先启动回复者。
