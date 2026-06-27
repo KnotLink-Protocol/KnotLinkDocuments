@@ -105,50 +105,62 @@ const config = {
         ],
       },
       footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'X',
-                href: 'https://x.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} HXH, Inc. Built with Docusaurus.`,
-      },
+  style: 'dark',
+  links: [
+    {
+      title: '文档',
+      items: [
+        {
+          label: '快速入门',
+          to: '/docs/intro',
+        },
+        {
+          label: '用户教程',
+          to: '/docs/category/用户教程',
+        },
+        {
+          label: '开发者文档',
+          to: '/docs/category/开发者文档',
+        },
+      ],
+    },
+    {
+      title: '社区',
+      items: [
+        {
+          label: 'GitHub 仓库',
+          href: 'https://github.com/KnotLink-Protocol',
+        },
+        {
+          label: '讨论区',
+          href: 'https://github.com/KnotLink-Protocol/knotlink/discussions',
+        },
+        {
+          label: '问题反馈',
+          href: 'https://github.com/KnotLink-Protocol/knotlink/issues',
+        },
+      ],
+    },
+    {
+      title: '更多',
+      items: [
+        {
+          label: '博客',
+          to: '/blog',
+        },
+        {
+          label: '协议规范',
+          to: '/docs/category/协议规范',
+        },
+        {
+          label: '生态节点',
+          to: '/docs/category/结点与配方索引',
+        },
+      ],
+    },
+  ],
+  copyright: `Copyright © ${new Date().getFullYear()} KnotLink 开源社区. Built with Docusaurus.`,
+},
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,

@@ -1,11 +1,67 @@
 .features {
   display: flex;
   align-items: center;
-  padding: 2rem 0;
+  padding: 3rem 0;
   width: 100%;
+  background: var(--ifm-color-emphasis-100); /* 浅灰背景，与 Hero 区分 */
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+.featureCard {
+  background: var(--ifm-card-background-color, #ffffff);
+  border-radius: 1.5rem;
+  padding: 2rem 1.5rem;
+  margin: 0 0.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.featureCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.10);
+}
+
+.featureEmoji {
+  font-size: 4rem;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  background: var(--ifm-color-primary-lightest);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212, 177, 38, 0.12); /* 柔和的金色背景 */
+}
+
+.featureTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.featureDescription {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ifm-color-emphasis-700);
+}
+
+/* 暗色模式适配 */
+[data-theme='dark'] .featureCard {
+  background: var(--ifm-background-color);
+  border-color: var(--ifm-color-emphasis-300);
+}
+
+[data-theme='dark'] .featureEmoji {
+  background: rgba(196, 158, 26, 0.25);
+}
+
+[data-theme='dark'] .featureDescription {
+  color: var(--ifm-color-emphasis-500);
 }

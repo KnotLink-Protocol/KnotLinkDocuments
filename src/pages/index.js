@@ -20,7 +20,7 @@ function HomepageHeader() {
           <Link
             className="button button--secondary button--lg"
             to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
+            开始使用 ⏱️
           </Link>
         </div>
       </div>
@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <Layout
       title={`主页`}
-      description="KnotLink - 一款轻量化、语义化应用互联协议">
+      description="KnotLink - 轻量化、语义化应用互联协议">
       <HomepageHeader />
       <main>
         <HomepageFeatures />
