@@ -1,0 +1,24 @@
+knotlink:
+  label: KnotLink
+  permalink: /knotlink
+  description: KnotLink 协议与生态相关文章
+
+protocol:
+  label: 协议规范
+  permalink: /protocol
+  description: KLP 协议设计与实现细节
+
+integration:
+  label: 集成案例
+  permalink: /integration
+  description: 各类软件接入 KnotLink 的实践
+
+automation:
+  label: 自动化
+  permalink: /automation
+  description: 使用 KnotLink 实现跨应用自动化编排
+
+community:
+  label: 社区动态
+  permalink: /community
+  description: 项目进展、活动与贡献指南

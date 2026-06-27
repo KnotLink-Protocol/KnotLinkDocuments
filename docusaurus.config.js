@@ -98,10 +98,10 @@ const config = {
           // {to: '/blog', label: '协议规范', position: 'left'},
           {to: '/blog', label: '博客', position: 'left'},
           {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
-            position: 'right',
-          },
+  href: 'https://github.com/KnotLink-Protocol',
+  label: 'GitHub',
+  position: 'right',
+},
         ],
       },
       footer: {

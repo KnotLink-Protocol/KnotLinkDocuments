@@ -1,0 +1,7 @@
+knotlink:
+  name: KnotLink 团队
+  title: 开源项目维护者
+  url: https://github.com/KnotLink-Protocol
+  image_url: https://github.com/KnotLink-Protocol.png  # 可选，若有组织头像
+  socials:
+    github: KnotLink-Protocol
